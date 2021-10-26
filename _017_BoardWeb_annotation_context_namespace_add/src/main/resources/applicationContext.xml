@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- xmlns:p="http://www.springframework.org/schema/p"  p 네임스페이스 사용하려면 상단에 해당 링크를 넣어야 한다. -->
+	<!-- p 네임스페이스를 선언했으면 다음과 같이 참조형 변수에 참조할 객체를 할다앟ㄹ 수 있다. -->
+	
+	<!--  p:변수명-ref = "참조할 객체의 이름이나 아이디" -->
+	
+	<context:component-scan base-package="polymorphism"></context:component-scan>
+	<!-- 
+	<bean id="collectionBean" class="polymorphism.SamsungTV">
+		<property name="speaker" ref="apple"></property>
+		<property name="price" value="2700000"></property>
+	</bean>
+	<bean id="sony" class="polymorphism.SonySpeaker" ></bean>
+	<bean id="apple" class="polymorphism.AppleSpeaker" ></bean>
+	 -->
+	
+</beans>
