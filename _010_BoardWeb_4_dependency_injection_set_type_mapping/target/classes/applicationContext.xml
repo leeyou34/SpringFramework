@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- xmlns:p="http://www.springframework.org/schema/p"  p 네임스페이스 사용하려면 상단에 해당 링크를 넣어야 한다. -->
+	<!-- p 네임스페이스를 선언했으면 다음과 같이 참조형 변수에 참조할 객체를 할다앟ㄹ 수 있다. -->
+	
+	<!--  p:변수명-ref = "참조할 객체의 이름이나 아이디" -->
+	
+	<bean id="collectionBean" class="com.springbook.ioc.injection.CollectionBean">
+	<!-- 	<property name="speaker" ref="apple"></property> -->
+	<!--	<property name="price" value="2700000"></property> -->
+		<property name="addressList">
+			<set value-type="java.lang.String">
+				<value>서울시 강남구 역삼동</value>
+				<value>서울시 성동구 행당동</value>
+				<value>성남시 분당구 구미동</value>
+			</set>
+		</property>
+	</bean>
+</beans>
