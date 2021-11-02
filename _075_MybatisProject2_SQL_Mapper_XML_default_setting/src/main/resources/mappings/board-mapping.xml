@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--  mapper DTD 선언 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper자체가 DAO 분리되어 나온 개념이기 때문에 namespace는 DAO명을 따라가는 경우가 일반적임 -->
+<mapper namespace="BoardDAO">
+	<resultMap type="board" id="boardResult">
+		<id property="seq" column="SEQ"/>
+		<result property="title" column="TITLE"/>
+		<result property="writer" column="WRITER"/>
+		<result property="content" column="CONTENT"/>
+		<result property="regDate" column="REGDATE"/>
+		<result property="cnt" column="CNT"/>
+	</resultMap>
+	
+<!--  21번째 줄 수정 필요함... 오라클용 query가 들어가 있어서 수정 반드시 필요... -->
+	<insert id="insertBoard">
+	<![CDATA[
+	<!-- <selectKey keyProperty="seq" resultType="int">  -->
+		SELECT BOARD_SEQ.NEXTVAL AS SEQ FROM DUAL
+	<!--  </selectKey>  -->
+		INSERT INTO studydb.BOARD(
+							SEQ
+						  , TITLE
+						  , WRITER
+						  , CONTENT
+						 )
+				  VALUES(
+				  			(SELECT IFNULL(MAX(SEQ), 0) + 1 FROM BOARD A)
+				  		  , #{title}
+				  		  , #{writer}
+				  		  , #{content}
+				  		)
+	]]>
+	</insert>
+	
+	<update id="updateBoard">
+	<![CDATA[
+		UPDATE BOARD
+			SET 
+				TITLE = #{title}
+			  , CONTENT = #{content}
+			WHERE SEQ = #{seq}
+	]]>
+	</update>
+	
+	<delete id="deleteBoard">
+	<![CDATA[
+		DELETE FROM BOARD
+			WHERE SEQ = #{seq}
+	]]>
+	</delete>
+	
+	<select id="getBoard" resultType="board">
+	<![CDATA[
+		SELECT * FROM BOARD
+			WHERE SEQ = #{seq}
+	]]>
+	</select>
+	
+	<select id="getBoardList" resultMap="boardResult" >
+	<![CDATA[
+		SELECT * FROM BOARD
+			WHERE TITLE LIKE CONCAT_WS('%', #{searchKeyword}, '%')
+			ORDER BY SEQ DESC
+	]]>
+	</select>
+</mapper>
