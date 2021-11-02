@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper자체가 DAO 분리되어 나온 개념이기 때문에 namespace는 DAO명을 따라가는 경우가 일반적임 -->
+<mapper namespace="BoardDAO">
+	<insert id="insertBoard">
+		INSERT INTO studydb.BOARD(
+							SEQ
+						  , TITLE
+						  , WRITER
+						  , CONTENT
+						 )
+				  VALUES(
+				  			(SELECT IFNULL(MAX(SEQ), 0) + 1 FROM BOARD A)
+				  		  , #{title}
+				  		  , #{writer}
+				  		  , #{content}
+				  		) 
+	</insert>
+	
+	<update id="updateBoard">
+		UPDATE BOARD
+			SET 
+				TITLE = #{title}
+			  , CONTENT = #{content}
+			WHERE SEQ = #{seq}
+	</update>
+	
+	<delete id="deleteBoard">
+		DELETE FROM BOARD
+			WHERE SEQ = #{seq}
+	</delete>
+	
+	<select id="getBoard" resultType="board">
+		SELECT * FROM BOARD
+			WHERE SEQ = #{seq}
+	</select>
+	
+	<select id="getBoardList" resultType="board">
+		SELECT * FROM BOARD
+			WHERE TITLE LIKE CONCAT_WS('%', #{searchKeyword}, '%')
+			ORDER BY SEQ DESC
+	</select>
+</mapper>
