@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<!--  persistence-unit : 영속성 유닛, name 소성으로 서정된 값을 EntityManagerfactory 객체 생성 시 사용 -->
+	<persistence-unit name="_078_JPAProject"> <!--  이 라인에 있는 persistence-unit 에 있는 name과 BoardServiceClient 클래스의  EntityManagerFactory emf = Persistence.createEntityManagerFactory("_078_JPAProject");  -->
+		<!--  영속성 유닛 내 엔티티 클래스 등록 -->
+		<class>com.springbook.biz.board.Board</class>
+		
+		<properties>
+			<!-- 필수 속성 -->
+			<!-- DataSource -->
+			<!-- 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"></property>
+			<property name="javax.persistence.jdbc.user" value="study"></property>
+			<property name="javax.persistence.jdbc.password" value="study"></property>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/studydb?serverTimezone=UTC"></property>
+			-->
+			<!-- MySql -->
+		    <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"></property>
+			<property name="javax.persistence.jdbc.user" value="study"></property>
+			<property name="javax.persistence.jdbc.password" value="study"></property>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/studydb?serverTimezone=UTC"></property>
+			<!-- hibernate.dialect : DB마다 문법이 조금씩 다르기 때문에 어떤 DB의 문법을 사용하는 지정 -->
+			<property name="hibernate.dialetct" value="org.hibernate.dialect.MySQLDialect"/>
+			
+			<!-- 옵션 -->
+			<!-- Show_sql : 생성된 SQL 콘솔에 표출 여부 결정 -->
+			<property name="hibernate.show_sql" value="true"/>
+			<!--  format_sql : SQL 출력 시 일정한 포맷으로 출력할지 말지 결정 -->
+			<property name="hibernate.format_sql" value="true"/>
+			<!-- use_sql_comments : 주석 출력 여부 결정 -->
+			<property name="hibernate.use_sql_comments" value="false"/>
+			<!-- id.new_generator_mappings : 새로운 키 생성  전략 사용여부 결정 -->
+			<property name="hibernate.id_sql_comments" value="true"/>
+			<!-- hbm2ddl.auto : 테이블의 생성, 수정, 삭제를 자동 처리 여부 -->
+			<!-- create : 기존 테이블을 DROP -> CREATE -> 하도록 설정 -->
+			<!-- create-drop : 기존 테이블을 DROP -> CREATE -> DROP하도록 설정 -->
+			<!-- update : 기존 테이블을 수정(Alter) 하도록 설정, 엔티티클래스가 기존 테이블에서 변화가 없으면 반영 안되고 기존 테이블 사용 -->
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
+		</properties>
+	</persistence-unit>
+</persistence>
